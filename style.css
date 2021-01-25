@@ -1,17 +1,19 @@
 main {
   display: grid;
-  grid-template-rows: repeat(3, 1fr);
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 150px);
+  grid-template-columns: repeat(3, 150px);
   font-family: sans-serif;
-  font-size: 9rem;
-  margin: 0 25vw;
+  font-size: 6rem;
+  font-weight: bold;
 }
 
 main > div {
-  text-align: center;
   border-style: solid;
   border-color: black;
   color: darkred;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 div[data-coords="0-0"] {
