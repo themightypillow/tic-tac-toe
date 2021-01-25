@@ -1,5 +1,9 @@
-const Player = () => {
-  
+const Player = (mark) => {
+  const getMark = () => mark;
+
+  return {
+    getMark
+  };
 };
 
 const board = (() => {
@@ -19,26 +23,38 @@ const board = (() => {
 })();
 
 const game = (() => {
-  let turn;
-  const toggleTurn = () => {
-    turn === "X" ? turn = "O" : turn = "X";
-    return turn;
+  const players = [Player("X"), Player("O")];
+
+  const makeTurn = (row, column) => {
+    const mark = players[0].getMark();
+    board.setSpot(row, column, mark);
+    players.reverse();
+    return mark;
   };
 
+  const getCurrentPlayer = () => players[0];
+
   return {
-    toggleTurn
+    makeTurn,
+    getCurrentPlayer
   };
 })();
 
 const displayController = (() => {
-  const squares = document.querySelectorAll("main > div");
+  const squares = document.querySelectorAll("section > div");
   squares.forEach(square => square.addEventListener("click", () => {
     if(!square.textContent) {
       const row = Number(square.dataset.coords[0]);
       const column = Number(square.dataset.coords.slice(-1));
-      const turn = game.toggleTurn();
-      board.setSpot(row, column, turn);
-      square.textContent = turn;
+      const mark = game.makeTurn(row, column);
+      square.classList.add(mark);
+      square.textContent = mark;
+
+      const lastPlayerDisplay = document.querySelector(`#player-${mark}`);
+      const nextPlayerDisplay = document.querySelector(
+          `#player-${game.getCurrentPlayer().getMark()}`);
+      lastPlayerDisplay.classList.remove("bold");
+      nextPlayerDisplay.classList.add("bold");
     }
   }));
 })();
