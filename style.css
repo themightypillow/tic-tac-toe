@@ -1,0 +1,53 @@
+main {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+  grid-template-columns: repeat(3, 1fr);
+  font-family: sans-serif;
+  font-size: 9rem;
+  margin: 0 25vw;
+}
+
+main > div {
+  text-align: center;
+  border-style: solid;
+  border-color: black;
+  color: darkred;
+}
+
+div[data-coords="0-0"] {
+  border-width: 0 5px 5px 0;
+}
+
+div[data-coords="0-1"] {
+  border-width: 0 5px 5px 5px;
+}
+
+div[data-coords="0-2"] {
+  border-width: 0 0 5px 5px;
+}
+
+div[data-coords="1-0"] {
+  border-width: 5px 5px 5px 0;
+}
+
+div[data-coords="1-1"] {
+  border-width: 5px;
+}
+
+div[data-coords="1-2"] {
+  border-width: 5px 0 5px 5px;
+}
+
+div[data-coords="2-0"] {
+  border-width: 5px 5px 0 0;
+}
+
+div[data-coords="2-1"] {
+  border-width: 5px 5px 0 5px;
+}
+
+div[data-coords="2-2"] {
+  border-width: 5px 0 0 5px;
+}
+
+
