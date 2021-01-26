@@ -105,3 +105,8 @@ div[data-coords="2-2"] {
 #startOverlay > button {
   margin-top: 10px;
 }
+
+#restart {
+  margin-top: 10px;
+  width: 100%;
+}
