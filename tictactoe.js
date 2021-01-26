@@ -79,7 +79,8 @@ const displayController = (() => {
   winDiv.textContent = "Wins!";
 
   const tieDiv = document.createElement("div");
-  tieDiv.textContent = "It's a Tie";
+  tieDiv.textContent = "It's a Tie!";
+  tieDiv.classList.add("bold");
 
   const makeTurn = (square) => {
     const row = Number(square.dataset.coords[0]);
@@ -97,12 +98,12 @@ const displayController = (() => {
 
     if(game.hasWin()) {
       lastPlayer.appendChild(winDiv);
-      // end the game, report winner
+      // end the game
     }
     else if(board.isFull()) {
       lastPlayer.classList.remove("bold");
-      lastPlayer.parentElement.appendChild(tieDiv);
-      // end the game, report tie
+      lastPlayer.parentElement.parentElement.appendChild(tieDiv);
+      // end the game
     }
     else {
       lastPlayer.classList.remove("bold");

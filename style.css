@@ -18,7 +18,7 @@ section > div {
   align-items: center;
 }
 
-main > footer {
+main > footer > div {
   margin-top: 10px;
   width: 450px;
   display: flex;
@@ -26,7 +26,7 @@ main > footer {
   font-size: 2rem;
 }
 
-main > footer > div {
+main > footer > div > div {
   display: flex;
   flex-direction: column;
   align-items: center;
