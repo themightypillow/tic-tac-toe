@@ -115,11 +115,20 @@ const displayController = (() => {
     }
   };
 
-  const squares = document.querySelectorAll("section > div");
-  squares.forEach(square => square.addEventListener("click", () => {
-    if(!square.textContent) {
-      const mark = makeTurn(square);
-      handleOutcome(mark);      
-    }
+  document.querySelectorAll("section > div")
+    .forEach(square => square.addEventListener("click", () => {
+      if(!square.textContent) {
+        const mark = makeTurn(square);
+        handleOutcome(mark);      
+      }
   }));
+
+  document.querySelector("#startOverlay > button").addEventListener("click", () => {
+    document.querySelector("#player-X > :first-child").textContent = 
+      document.querySelector("#player1").value;
+    document.querySelector("#player-O > :first-child").textContent = 
+      document.querySelector("#player2").value;
+    document.querySelector("#startOverlay").style.display = "none";
+  });
+
 })();
