@@ -82,6 +82,10 @@ const displayController = (() => {
   tieDiv.textContent = "It's a Tie!";
   tieDiv.classList.add("bold");
 
+  const disableGame = () => {
+    document.querySelector("main > section").classList.add("disabled");
+  }; 
+
   const makeTurn = (square) => {
     const row = Number(square.dataset.coords[0]);
     const column = Number(square.dataset.coords.slice(-1));
@@ -98,18 +102,18 @@ const displayController = (() => {
 
     if(game.hasWin()) {
       lastPlayer.appendChild(winDiv);
-      // end the game
+      disableGame();
     }
     else if(board.isFull()) {
       lastPlayer.classList.remove("bold");
       lastPlayer.parentElement.parentElement.appendChild(tieDiv);
-      // end the game
+      disableGame();
     }
     else {
       lastPlayer.classList.remove("bold");
       nextPlayer.classList.add("bold");
     }
-  }
+  };
 
   const squares = document.querySelectorAll("section > div");
   squares.forEach(square => square.addEventListener("click", () => {

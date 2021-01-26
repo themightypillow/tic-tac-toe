@@ -40,6 +40,10 @@ main > footer > div > div {
   color: darkblue;
 }
 
+.disabled {
+  pointer-events: none;
+}
+
 .bold {
   font-weight: bold;
 }
