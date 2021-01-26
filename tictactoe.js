@@ -75,24 +75,46 @@ const game = (() => {
 })();
 
 const displayController = (() => {
+  const winDiv = document.createElement("div");
+  winDiv.textContent = "Wins!";
+
+  const tieDiv = document.createElement("div");
+  tieDiv.textContent = "It's a Tie";
+
+  const makeTurn = (square) => {
+    const row = Number(square.dataset.coords[0]);
+    const column = Number(square.dataset.coords.slice(-1));
+    const mark = game.makeTurn(row, column);
+    square.classList.add(mark);
+    square.textContent = mark;
+    return mark;
+  }
+
+  const handleOutcome = (mark) => {
+    const lastPlayer = document.querySelector(`#player-${mark}`);
+    const nextPlayer = document.querySelector(
+        `#player-${game.getCurrentPlayer().getMark()}`);
+
+    if(game.hasWin()) {
+      lastPlayer.appendChild(winDiv);
+      // end the game, report winner
+    }
+    else if(board.isFull()) {
+      lastPlayer.classList.remove("bold");
+      lastPlayer.parentElement.appendChild(tieDiv);
+      // end the game, report tie
+    }
+    else {
+      lastPlayer.classList.remove("bold");
+      nextPlayer.classList.add("bold");
+    }
+  }
+
   const squares = document.querySelectorAll("section > div");
   squares.forEach(square => square.addEventListener("click", () => {
     if(!square.textContent) {
-      const row = Number(square.dataset.coords[0]);
-      const column = Number(square.dataset.coords.slice(-1));
-      const mark = game.makeTurn(row, column);
-      square.classList.add(mark);
-      square.textContent = mark;
-
-      const lastPlayer = document.querySelector(`#player-${mark}`);
-      const nextPlayer = document.querySelector(
-          `#player-${game.getCurrentPlayer().getMark()}`);
-
-      // if(game.hasWin()) console.log(`${mark} wins!`);
-      // else if(board.isFull()) console.log("It's a tie");
-
-      lastPlayer.classList.remove("bold");
-      nextPlayer.classList.add("bold");
+      const mark = makeTurn(square);
+      handleOutcome(mark);      
     }
   }));
 })();
