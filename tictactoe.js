@@ -1,8 +1,27 @@
 const Player = (mark) => {
+  const rowCounter = [0, 0, 0];
+  const columnCounter = [0, 0, 0];
+  const forwardCounter = [0, 0, 0];
+  const backwardCounter = [0, 0, 0];
+
   const getMark = () => mark;
+  const countRow = (row) => ++rowCounter[row];
+  const countColumn = (col) => ++columnCounter[col];
+  const countForward = (row) => {
+    forwardCounter[row]++;
+    return forwardCounter.reduce((sum, n) => sum += n, 0);
+  };
+  const countBackward = (col) => {
+    backwardCounter[col]++;
+    return backwardCounter.reduce((sum, n) => sum += n, 0);
+  };
 
   return {
-    getMark
+    getMark,
+    countRow,
+    countColumn,
+    countForward,
+    countBackward
   };
 };
 
@@ -13,21 +32,21 @@ const board = (() => {
     2: []
   };
 
-  const setSpot = (row, column, mark) => board[row][column] = mark;
-  const getBoard = () => board;
+  const setSpot = (row, column, mark) => {
+    board[row][column] = mark;
+  };
 
   return {
-    setSpot,
-    getBoard
+    setSpot
   };
 })();
 
 const game = (() => {
   const players = [Player("X"), Player("O")];
 
-  const makeTurn = (row, column) => {
+  const makeTurn = (row, col) => {
     const mark = players[0].getMark();
-    board.setSpot(row, column, mark);
+    board.setSpot(row, col, mark);
     players.reverse();
     return mark;
   };
@@ -50,11 +69,11 @@ const displayController = (() => {
       square.classList.add(mark);
       square.textContent = mark;
 
-      const lastPlayerDisplay = document.querySelector(`#player-${mark}`);
-      const nextPlayerDisplay = document.querySelector(
+      const lastPlayer = document.querySelector(`#player-${mark}`);
+      const nextPlayer = document.querySelector(
           `#player-${game.getCurrentPlayer().getMark()}`);
-      lastPlayerDisplay.classList.remove("bold");
-      nextPlayerDisplay.classList.add("bold");
+      lastPlayer.classList.remove("bold");
+      nextPlayer.classList.add("bold");
     }
   }));
 })();
