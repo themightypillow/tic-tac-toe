@@ -43,19 +43,30 @@ const board = (() => {
 
 const game = (() => {
   const players = [Player("X"), Player("O")];
+  let winner = false;
+
+  const setWin = () => winner = true;
 
   const makeTurn = (row, col) => {
     const mark = players[0].getMark();
     board.setSpot(row, col, mark);
+
+    if(players[0].countRow(row) === 3) setWin();
+    if(players[0].countColumn(col) === 3) setWin();
+    if(row === col && players[0].countForward(row) === 3) setWin();
+    if(row + col + 1 === 3 && players[0].countBackward(col) === 3) setWin();
+
     players.reverse();
     return mark;
   };
 
   const getCurrentPlayer = () => players[0];
+  const hasWin = () => winner;
 
   return {
     makeTurn,
-    getCurrentPlayer
+    getCurrentPlayer,
+    hasWin
   };
 })();
 
