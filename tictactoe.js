@@ -31,13 +31,17 @@ const board = (() => {
     1: [],
     2: []
   };
+  let counter = 0;
 
   const setSpot = (row, column, mark) => {
     board[row][column] = mark;
+    counter++;
   };
+  const isFull = () => counter >= 9;
 
   return {
-    setSpot
+    setSpot,
+    isFull
   };
 })();
 
@@ -83,6 +87,10 @@ const displayController = (() => {
       const lastPlayer = document.querySelector(`#player-${mark}`);
       const nextPlayer = document.querySelector(
           `#player-${game.getCurrentPlayer().getMark()}`);
+
+      // if(game.hasWin()) console.log(`${mark} wins!`);
+      // else if(board.isFull()) console.log("It's a tie");
+
       lastPlayer.classList.remove("bold");
       nextPlayer.classList.add("bold");
     }
